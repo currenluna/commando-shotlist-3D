@@ -61,22 +61,33 @@ Each shot ships with a starting pose preset (`crouch_reach`,
 it:
 
 1. Pick a joint from the **Joint** dropdown (e.g. `elbow_R`).
-2. Drag the **X / Y / Z** sliders — X swings the limb forward/backward,
-   Z swings it away from the body's centerline, Y twists it. Torso
-   joints (`pelvis`, `spine`, `chest`, `neck`, `head`) use the same
-   convention relative to a standing rest pose.
+2. Drag the **X / Y / Z** sliders. X swings the limb forward/backward —
+   on a limb this sweeps a full arc as it grows (~90° is horizontal, ~180°
+   is straight up), so "raise the arm" poses live on X, not Z. Z swings a
+   limb away from the body's centerline (a large Z genuinely means
+   "held straight out to the side," as in the paint-arm pose) or across
+   it toward/past the centerline for negative values; use it for side
+   clearance and crossing gestures rather than lift. Y twists the segment
+   around its own long axis. Torso joints (`pelvis`, `spine`, `chest`,
+   `neck`, `head`) use the same convention relative to a standing rest
+   pose. See the convention comment at the top of `src/poses.js` for the
+   full breakdown.
 3. **Crouch / root height** lowers or raises the whole mannequin (for
    kneeling/crouching shots) independently of the leg joints.
 4. **Copy pose from shot** lets you pull another shot's *saved* pose
    (or its default preset, if that shot hasn't been touched yet) onto
-   the current shot — handy since several shots (5–9, 11, 17–18) share
-   a similar hands-at-chest setup.
+   the current shot — handy since several shots (5–9, 17–18) share a
+   similar hands-at-chest setup.
 5. **Reset Pose to Default** discards your edits and reloads the shot's
    seed preset.
 
 Any prop the mannequin is "holding" (rifle on the right hand, pistol on
 the left) is parented to that hand's joint, so it follows the pose
-automatically.
+automatically. Each preset also declares which prop, if any, should be
+*visible* (see the `props` field in `src/poses.js`) — most poses show
+neither, so a bare-handed gesture like grabbing the duffel or painting a
+stripe doesn't visibly clutch a gun; only the pistol- and rifle-handling
+poses show their weapon.
 
 ## Camera inspector
 

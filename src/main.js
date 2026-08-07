@@ -315,7 +315,7 @@ poseResetBtn.addEventListener("click", () => {
 function clonePose(p) {
   const joints = {};
   for (const k in p.joints) joints[k] = { ...p.joints[k] };
-  return { rootHeight: p.rootHeight, joints };
+  return { rootHeight: p.rootHeight, joints, props: { ...(p.props || {}) } };
 }
 
 // ---------------------------------------------------------------------

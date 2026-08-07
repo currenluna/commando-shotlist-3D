@@ -212,11 +212,16 @@ export function createMannequin() {
 
   const gear = buildGearProps(joints.chest.end, joints.hip_R, joints.wrist_L, joints.wrist_R);
   root.add(gear);
+  // Held weapons default to hidden; applyPose() shows only what a given
+  // pose's `props` field asks for (see poses.js) so a bare-handed pose
+  // (grabbing a duffel, painting a stripe) doesn't visibly clutch a gun.
+  gear.userData.rifle.visible = false;
+  gear.userData.pistol.visible = false;
 
   // Accepts either a preset name (string, see poses.js POSES) or an
-  // already-resolved { rootHeight, joints } pose object (as produced by
-  // resolvePose(), e.g. one round-tripped through the pose editor or
-  // loaded from localStorage/import JSON).
+  // already-resolved { rootHeight, joints, props } pose object (as
+  // produced by resolvePose(), e.g. one round-tripped through the pose
+  // editor or loaded from localStorage/import JSON).
   function applyPose(presetNameOrResolvedPose) {
     const resolved =
       typeof presetNameOrResolvedPose === "string"
@@ -226,6 +231,9 @@ export function createMannequin() {
     for (const name of JOINT_NAMES) {
       setJointRotation(name, resolved.joints[name]);
     }
+    const props = resolved.props || {};
+    gear.userData.rifle.visible = !!props.rifle;
+    gear.userData.pistol.visible = !!props.pistol;
     return resolved;
   }
 
