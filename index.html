@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Commando — Gear-Up Previs</title>
+  <link rel="stylesheet" href="/src/style.css" />
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <div id="brand">GEAR-UP PREVIS</div>
+      <div id="aspect-control">
+        <label for="aspect-select">Scope</label>
+        <select id="aspect-select">
+          <option value="2.39">2.39:1</option>
+          <option value="1.85">1.85:1</option>
+          <option value="1.7778">16:9</option>
+        </select>
+      </div>
+      <div id="io-controls">
+        <button id="export-btn" title="Export all shots to JSON">Export JSON</button>
+        <button id="import-btn" title="Import JSON">Import JSON</button>
+        <input type="file" id="import-file" accept="application/json" hidden />
+      </div>
+    </header>
+
+    <div id="main-row">
+      <aside id="left-col">
+        <div class="panel" id="reference-panel">
+          <div class="panel-title">Reference</div>
+          <div class="ratio-box" id="reference-box">
+            <img id="reference-img" alt="Reference frame" />
+          </div>
+        </div>
+        <div class="panel" id="preview-panel">
+          <div class="panel-title">
+            Shot Camera Preview
+            <label class="onion-toggle">
+              <input type="checkbox" id="onion-toggle" /> Onion-skin
+            </label>
+          </div>
+          <div class="ratio-box" id="preview-box">
+            <canvas id="preview-canvas"></canvas>
+            <img id="onion-img" alt="" />
+          </div>
+          <div class="onion-slider-row">
+            <label for="onion-opacity">Opacity</label>
+            <input type="range" id="onion-opacity" min="0" max="100" value="50" />
+            <span id="onion-opacity-val">50%</span>
+          </div>
+        </div>
+      </aside>
+
+      <main id="viewport-col">
+        <div id="viewport-panel">
+          <canvas id="viewport-canvas"></canvas>
+          <div id="hud">
+            <div id="hud-focal">— mm</div>
+            <div id="hud-height">— m height</div>
+          </div>
+        </div>
+      </main>
+
+      <aside id="right-col">
+        <div class="panel" id="camera-panel">
+          <div class="panel-title">Shot Camera</div>
+          <div id="drag-mode-row">
+            <label>Drag in viewport:</label>
+            <button id="drag-camera-btn" class="toggle-btn" data-active="true">Camera</button>
+            <button id="drag-target-btn" class="toggle-btn">Target</button>
+          </div>
+          <div id="camera-fields"></div>
+          <button id="camera-reset-btn" class="reset-btn">Reset Camera to Default</button>
+        </div>
+        <div class="panel" id="pose-panel">
+          <div class="panel-title">Pose Editor</div>
+          <div id="pose-preset-row">
+            <label for="pose-preset-select">Preset</label>
+            <select id="pose-preset-select"></select>
+          </div>
+          <div id="pose-copy-row">
+            <label for="pose-copy-select">Copy pose from shot</label>
+            <select id="pose-copy-select"></select>
+            <button id="pose-copy-btn">Copy</button>
+          </div>
+          <div id="pose-joint-row">
+            <label for="joint-select">Joint</label>
+            <select id="joint-select"></select>
+          </div>
+          <div id="joint-sliders"></div>
+          <div id="root-row">
+            <label for="root-height">Crouch / root height (m)</label>
+            <input type="range" id="root-height" min="-0.8" max="0.3" step="0.01" value="0" />
+            <span id="root-height-val">0.00</span>
+          </div>
+          <button id="pose-reset-btn" class="reset-btn">Reset Pose to Default</button>
+        </div>
+      </aside>
+    </div>
+
+    <footer id="shot-nav">
+      <button id="prev-btn" title="Previous shot (Left arrow)">&#8249; Prev</button>
+      <div id="shot-indicator">Shot 01 / 20 — 00:07 — Approach at cliff</div>
+      <button id="next-btn" title="Next shot (Right arrow)">Next &#8250;</button>
+    </footer>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
